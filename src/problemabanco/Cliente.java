@@ -18,7 +18,7 @@ public class Cliente {
 
 	public Cliente(double tiempoLLega, double tiempoA) {
 		this.tiempoLLegada = tiempoLLega;
-		this.tiempoAtencion = tiempoA;
+		this.tiempoAtencion = tiempoA;                
 	}
 
     public double getTiempoLLegada() {
