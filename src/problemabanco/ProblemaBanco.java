@@ -25,7 +25,7 @@ public class ProblemaBanco {
        abrirBanco.inicializarSimulacion(1);
        abrirBanco.generarLlegada();
        while(reloj<=limite){
-        
+         abrirBanco.atenderCliente(reloj);
        }
     }
     

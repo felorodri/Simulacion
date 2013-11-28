@@ -25,12 +25,13 @@ public class SimularBanco {
         }
     }
 
-    public void atenderCliente() {
+    public void atenderCliente(int reloj) {
         generarLlegada();
         siguiente = (Cliente) line.elementAt(0);
         line.removeElementAt(0);
         NumCajeroLibre=cajerolibre();
         siguiente.setCajeroAtiende(NumCajeroLibre);
+        siguiente.setTiempoSalida(reloj+siguiente.getTiempoAtencion());
         ClienteAtendido++;
         
 
