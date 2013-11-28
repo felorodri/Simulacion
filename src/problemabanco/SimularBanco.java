@@ -1,25 +1,21 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package problemabanco;
 
 import java.util.Stack;
-
-/**
- *
- * @author maraes
- */
+import java.util.Vector;
 
 public class SimularBanco {
-    Stack<Object> ListadoEventos;
+   
     boolean[] CajeroOcupado;
+    Vector line = new Vector();
+    Vector buffer = new Vector();
     double Tiempollegada,TiempoAtencion;
-    Evento evento;
+    Cliente client;
     int Cola;
     int ClientePerdido;
     int ClienteAtendido;
     int NumCajeroLibre;
+    int reloj =0;
     
     public void inicializarSimulacion(int CantidadCajeros){
         CajeroOcupado=new boolean[CantidadCajeros];
@@ -28,28 +24,58 @@ public class SimularBanco {
         }
     }
     
-    public  void eventollegada(){
+    public  void simulacion(){
+        
         generarLlegada();
-        if(Cola>7){
-            ClientePerdido++;
-        }else{
-            if(haycajerolibre()==true){
-                if()
-            }
-        }
+        
+        
+        
+         
+        
     }
+
     public void eventoSalida(){
         
     }
+   
+    
     public void generarLlegada(){
+        
         Tiempollegada=(-1)*Math.log(Math.random());
-        evento=new Evento("llegada",Tiempollegada);
-        ListadoEventos.push(evento);        
-    }
-    public void generarSalida(){
         TiempoAtencion=(10-2)*Math.random()+2;
+        client =new Cliente(Tiempollegada,TiempoAtencion);
+        
+        for(int i=0; i<=line.size();i++){
+            
+            Cliente nClient = (Cliente)line.elementAt(0);
+            
+            if (nClient.getTiempoLLegada() <= client.getTiempoLLegada()){
+                
+                buffer.add(nClient);
+                line.removeElementAt(0);
+                
+            }else {
+                
+                buffer.add(client);
+                for(int k=0;k<=line.size();k++){
+                    buffer.add((Cliente)line.elementAt(k));
+                }
+                line.removeAllElements();
+                line = buffer;
+                buffer.removeAllElements();
+                break;
+            }
+                    
+          }
+                
+    }
+    
+    
+    
+    public void generarSalida(){
+    /*    
         evento=new Evento("atencion",TiempoAtencion);
-        ListadoEventos.push(evento);        
+       
     }
 
     private boolean haycajerolibre() {
@@ -61,5 +87,6 @@ public class SimularBanco {
            }
        }
         return libre;
+    }*/
     }
 }
