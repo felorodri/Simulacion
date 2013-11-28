@@ -49,6 +49,9 @@ public class SimularBanco {
         if (line.size() > 7) {
             ClientePerdido++;
         } else {
+            if(line.isEmpty()){
+                line.add(client);
+            }else{
             for (int i = 0; i <= line.size(); i++) {
 
                 Cliente nClient = (Cliente) line.elementAt(0);
@@ -70,6 +73,7 @@ public class SimularBanco {
                     break;
                 }
 
+            }
             }
         }
 
