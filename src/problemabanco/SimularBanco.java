@@ -8,6 +8,7 @@ public class SimularBanco {
     boolean[] CajeroOcupado;
     Vector line = new Vector();
     Vector buffer = new Vector();
+    Vector ordenLLegada = new Vector();
     double Tiempollegada, TiempoAtencion;
     Cliente client;
     Cliente siguiente;
@@ -16,6 +17,7 @@ public class SimularBanco {
     int ClienteAtendido;
     int NumCajeroLibre;
     int reloj = 0;
+    int limite = 120;
     
 
     public void inicializarSimulacion(int CantidadCajeros) {
@@ -25,59 +27,85 @@ public class SimularBanco {
         }
     }
 
-    public void atenderCliente(int reloj) {
-        generarLlegada();
-        siguiente = (Cliente) line.elementAt(0);
-        line.removeElementAt(0);
-        NumCajeroLibre=cajerolibre();
-        siguiente.setCajeroAtiende(NumCajeroLibre);
-        siguiente.setTiempoSalida(reloj+siguiente.getTiempoAtencion());
-        ClienteAtendido++;
+ /*   public void atenderCliente(int reloj) {
+        this.reloj = reloj;
+        generarLlegadas();
         
-
-
-    }
+        if(line.size()==0){
+            
+            System.out.println("No hay clientes por atender");
+            
+        }else{
+            
+            siguiente = (Cliente) line.elementAt(0);
+            line.removeElementAt(0);
+            //NumCajeroLibre=cajerolibre();
+            //siguiente.setCajeroAtiende(NumCajeroLibre);
+            //siguiente.setTiempoSalida(reloj+siguiente.getTiempoAtencion());
+            //ClienteAtendido++;  
+        }
+           
+    }*/
 
     public void eventoSalida() {
     }
 
-    public void generarLlegada() {
-
-        Tiempollegada = (-1) * Math.log(Math.random());
-        TiempoAtencion = (10 - 2) * Math.random() + 2;
-        client = new Cliente(Tiempollegada, TiempoAtencion);
-
-        if (line.size() > 7) {
-            ClientePerdido++;
-        } else {
-            if(line.isEmpty()){
-                line.add(client);
+    public void generarLlegadas() {
+        
+        while(reloj<=limite){
+            
+            System.out.println("\n Tamano ordenLLegada: "+ordenLLegada.size());
+            Tiempollegada = ((-1) * Math.log(Math.random()))+reloj;
+            System.out.println(Tiempollegada);
+            TiempoAtencion = (10 - 2) * Math.random() + 2;
+            client = new Cliente(Tiempollegada, TiempoAtencion);
+            
+            if(ordenLLegada.isEmpty()){
+                
+                ordenLLegada.add(client);
+                
             }else{
-            for (int i = 0; i <= line.size(); i++) {
+                
+                for (int i=0; i<ordenLLegada.size(); i++){
+                    
+                    Cliente nClient = (Cliente) ordenLLegada.elementAt(0);
+                    
+                    if (nClient.getTiempoLLegada() <= client.getTiempoLLegada()) {
 
-                Cliente nClient = (Cliente) line.elementAt(0);
-
-                if (nClient.getTiempoLLegada() <= client.getTiempoLLegada()) {
-
-                    buffer.add(nClient);
-                    line.removeElementAt(0);
-
-                } else {
-
-                    buffer.add(client);
-                    for (int k = 0; k <= line.size(); k++) {
-                        buffer.add((Cliente) line.elementAt(k));
+                        buffer.add(nClient);
+                        ordenLLegada.removeElementAt(0);
+                        if(ordenLLegada.isEmpty()){
+                            buffer.add(client);
+                            ordenLLegada=buffer;
+                        }
+                    }else{
+                                                                       
+                        buffer.add(client);
+                        
+                        for (int k = 0; k < ordenLLegada.size(); k++) {
+                            client=(Cliente) ordenLLegada.elementAt(k);
+                            buffer.add(client);
+                        }
+                        
+                        ordenLLegada.removeAllElements();
+                        ordenLLegada = (Vector) buffer.clone();
+                        buffer.removeAllElements();                        
+                        break;
+                        
                     }
-                    line.removeAllElements();
-                    line = buffer;
-                    buffer.removeAllElements();
-                    break;
+                    
                 }
-
+              
             }
-            }
+                  
+        reloj++;
+     
+    }
+        for(int i=0;i<ordenLLegada.size(); i++){
+            Cliente nuevoK = (Cliente)ordenLLegada.elementAt(i);
+            System.out.println("El tamano de orden llegada es: "+ordenLLegada.size()+"\n");
+            System.out.println("Tiempo llegada cliente "+ i+" es: "+nuevoK.getTiempoLLegada()+"\n");
         }
-
     }
 
     /* public void generarSalida(){
