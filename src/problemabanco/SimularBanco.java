@@ -65,9 +65,7 @@ public class SimularBanco {
                 ordenLLegada.add(client);
                 
             }else{
-                if(ordenLLegada.size()>7){
-                    ClientePerdido++;
-                }else{
+                
                 for (int i=0; i<ordenLLegada.size(); i++){
                     
                     Cliente nClient = (Cliente) ordenLLegada.elementAt(i);
@@ -112,7 +110,7 @@ public class SimularBanco {
                     
                     
                 }
-                }
+                
             }
                   
         reloj++;
