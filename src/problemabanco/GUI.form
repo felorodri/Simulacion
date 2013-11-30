@@ -102,11 +102,17 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Simular"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BSimularActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="BMostrarEstadisticas">
       <Properties>
         <Property name="text" type="java.lang.String" value="Mostrar Estadisticas"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BMostrarEstadisticasActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel4">
       <Properties>

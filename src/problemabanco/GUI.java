@@ -47,8 +47,18 @@ public class GUI extends javax.swing.JFrame {
         jLabel3.setText("Tiempo de Simulacion");
 
         BSimular.setText("Simular");
+        BSimular.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BSimularActionPerformed(evt);
+            }
+        });
 
         BMostrarEstadisticas.setText("Mostrar Estadisticas");
+        BMostrarEstadisticas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BMostrarEstadisticasActionPerformed(evt);
+            }
+        });
 
         jLabel4.setText("Estudiantes:");
 
@@ -108,6 +118,14 @@ public class GUI extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void BSimularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BSimularActionPerformed
+        
+    }//GEN-LAST:event_BSimularActionPerformed
+
+    private void BMostrarEstadisticasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BMostrarEstadisticasActionPerformed
+        
+    }//GEN-LAST:event_BMostrarEstadisticasActionPerformed
 
     /**
      * @param args the command line arguments
