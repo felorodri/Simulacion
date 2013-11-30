@@ -96,6 +96,7 @@ public class SimularBanco {
        
         reloj++;
       }
+    System.out.println("Cantidad de clientes perdidos: "+ClientesPerdidos);
     }
   
 
