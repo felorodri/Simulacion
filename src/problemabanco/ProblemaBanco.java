@@ -21,7 +21,7 @@ public class ProblemaBanco {
     public static void main(String[] args) {
        
        SimularBanco abrirBanco=new SimularBanco();
-       abrirBanco.inicializarSimulacion(1);
+       abrirBanco.inicializarSimulacion(4);
        abrirBanco.generarLlegadas();
        abrirBanco.simulaAtencion();
        
