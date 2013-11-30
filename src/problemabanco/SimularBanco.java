@@ -17,6 +17,7 @@ public class SimularBanco {
     int Cola;
     int ClientePerdido;
     int ClienteAtendido;
+    int ClientesPerdidos;
     int NumCajeroLibre;
     int reloj = 0;
     int limite = 120;
@@ -30,8 +31,8 @@ public class SimularBanco {
     }
 
     public void simulaAtencion(){
-        fila=ordenLLegada;
-    
+        
+    while(reloj<=limite){
                     
         for(int w=0; w<Cajeros.length;w++){
             
@@ -58,20 +59,45 @@ public class SimularBanco {
         }
         
         
-        
-        
-        
-        
-        
-        
-        
-        
-        reloj++;
-           
-    }
+        for(int f=0;f<ordenLLegada.size();f++){
+            
+            Cliente cli = (Cliente)ordenLLegada.elementAt(0);
+            
+            if(cli.getTiempoLLegada()<reloj+1){
+                
+                if(fila.size()<7){
+                    fila.add(cli);
+                    ordenLLegada.removeElementAt(0);
+                    
+                    if(cLibre()==true && fila.size()==1){
+                        
+                        cli = (Cliente)fila.elementAt(0);
+                        fila.removeElementAt(0);
+                        int libre=cajerolibre();
+                        cli.setTiempoInicioAtencion(reloj);
+                        Cajas[libre]=cli;
+                        Cajeros[libre].setOcupado(true);
+                        Cajeros[libre].setOcupacion(reloj+cli.getTiempoAtencion());
+                        Cajeros[libre].setTiempoTotalOcupado(cli.getTiempoAtencion());
+                        Cajeros[libre].setClientesAtendidos(Cajeros[libre].getClientesAtendidos()+1);
+                           
+                    }
+                    
+                }else{
+                    ordenLLegada.removeElementAt(0);
+                    ClientesPerdidos++;
+                }
+                           
+            }else{
+                break; 
+            }
     
-    public void eventoSalida() {
+        }
+       
+        reloj++;
+      }
     }
+  
 
     public void generarLlegadas() {
 
@@ -123,11 +149,7 @@ public class SimularBanco {
         reloj = 0;
     }
 
-    /* public void generarSalida(){
- 
-     evento=new Evento("atencion",TiempoAtencion);
-       
-     }*/
+   
     private int cajerolibre() {
         int libre = 0;
         for (int i = 0; i < Cajeros.length; i++) {
