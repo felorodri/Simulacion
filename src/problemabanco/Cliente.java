@@ -14,7 +14,7 @@ public class Cliente {
 	double tiempoSalida;
 	double tiempoInicioAtencion;
 	double tiempoAtencion;
-	int cajeroAtiende;
+	
 
 	public Cliente(double tiempoLLega, double tiempoA) {
 		this.tiempoLLegada = tiempoLLega;
@@ -53,13 +53,7 @@ public class Cliente {
         this.tiempoAtencion = tiempoAtencion;
     }
 
-    public int getCajeroAtiende() {
-        return cajeroAtiende;
-    }
-
-    public void setCajeroAtiende(int cajeroAtiende) {
-        this.cajeroAtiende = cajeroAtiende;
-    }
+    
 
 	
 	

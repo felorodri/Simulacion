@@ -10,9 +10,11 @@ package problemabanco;
  */
 public class Cajero {
     boolean Ocupado=false;
-     int TiempoTotalOcupado=0;
+     double TiempoTotalOcupado=0;
+     double Ocupacion=0; 
+    int clientesAtendidos=0;
 
-    public boolean getOcupado() {
+    public boolean isOcupado() {
         return Ocupado;
     }
 
@@ -20,12 +22,28 @@ public class Cajero {
         this.Ocupado = Ocupado;
     }
 
-    public int getTiempoTotalOcupado() {
+    public double getTiempoTotalOcupado() {
         return TiempoTotalOcupado;
     }
 
-    public void setTiempoTotalOcupado(int TiempoTotalOcupado) {
-        this.TiempoTotalOcupado = TiempoTotalOcupado;
+    public void setTiempoTotalOcupado(double TiempoTotalOcupado) {
+        this.TiempoTotalOcupado = this.TiempoTotalOcupado+TiempoTotalOcupado;
+    }
+
+    public double getOcupacion() {
+        return Ocupacion;
+    }
+
+    public void setOcupacion(double Ocupacion) {
+        this.Ocupacion = Ocupacion;
+    }
+
+    public int getClientesAtendidos() {
+        return clientesAtendidos;
+    }
+
+    public void setClientesAtendidos(int clientesAtendidos) {
+        this.clientesAtendidos = clientesAtendidos;
     }
    
     

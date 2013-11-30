@@ -24,6 +24,7 @@ public class ProblemaBanco {
        SimularBanco abrirBanco=new SimularBanco();
        abrirBanco.inicializarSimulacion(1);
        abrirBanco.generarLlegadas();
+       abrirBanco.simulaAtencion();
        //abrirBanco.generarLlegada();
        //while(reloj<=limite){
          //System.out.println("Tiempo reloj: "+reloj+"\n");

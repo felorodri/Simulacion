@@ -6,9 +6,11 @@ import java.util.Vector;
 public class SimularBanco {
 
     Cajero[] Cajeros;
-    Vector line = new Vector();
+    Cliente[] Cajas;
+    Vector fila = new Vector();
     Vector buffer = new Vector();
     Vector ordenLLegada = new Vector();
+    Vector atendidos = new Vector();
     double Tiempollegada, TiempoAtencion;
     Cliente client;
     Cliente siguiente;
@@ -20,21 +22,64 @@ public class SimularBanco {
     int limite = 120;
 
     public void inicializarSimulacion(int CantidadCajeros) {
-        Cajeros=new Cajero[CantidadCajeros];
+        Cajeros =new Cajero[CantidadCajeros];
+        Cajas   =new Cliente[CantidadCajeros];
+        for (int k=0; k<Cajeros.length; k++){
+            Cajeros[k]= new Cajero();
+        }
     }
 
+    public void simulaAtencion(){
+        fila=ordenLLegada;
+    
+                    
+        for(int w=0; w<Cajeros.length;w++){
+            
+            if(Cajeros[w].getOcupacion()<reloj && Cajeros[w].getOcupacion()!=0){
+                Cajeros[w].setOcupado(false);
+                Cajas[w].setTiempoSalida(reloj);
+                atendidos.add(Cajas[w]);
+            }
+            
+        }
+                       
+        while(!fila.isEmpty()&& cLibre()){
+            
+            int libre=cajerolibre();
+            Cliente siguiente = (Cliente)fila.elementAt(0);
+            siguiente.setTiempoInicioAtencion(reloj);
+            Cajas[libre]=siguiente;
+            fila.removeElementAt(0);
+            
+            Cajeros[libre].setOcupado(true);
+            Cajeros[libre].setOcupacion(reloj+siguiente.getTiempoAtencion());
+            Cajeros[libre].setTiempoTotalOcupado(siguiente.getTiempoAtencion());
+            Cajeros[libre].setClientesAtendidos(Cajeros[libre].getClientesAtendidos()+1);
+                                    
+        }
+        
+        
+        
+        
+        
+        
+        
+        
+        reloj++;
+           
+    }
     /*   public void atenderCliente(int reloj) {
      this.reloj = reloj;
      generarLlegadas();
         
-     if(line.size()==0){
+     if(fila.size()==0){
             
      System.out.println("No hay clientes por atender");
             
      }else{
             
-     siguiente = (Cliente) line.elementAt(0);
-     line.removeElementAt(0);
+     siguiente = (Cliente) fila.elementAt(0);
+     fila.removeElementAt(0);
      //NumCajeroLibre=cajerolibre();
      //siguiente.setCajeroAtiende(NumCajeroLibre);
      //siguiente.setTiempoSalida(reloj+siguiente.getTiempoAtencion());
@@ -107,9 +152,21 @@ public class SimularBanco {
     private int cajerolibre() {
         int libre = 0;
         for (int i = 0; i < Cajeros.length; i++) {
-            if (Cajeros[i].getOcupado() == false) {
+            if (Cajeros[i].isOcupado() == false) {
                 Cajeros[i].setOcupado(true);
                 libre = i;
+                break;
+            }
+        }
+        return libre;
+    }
+    
+    private boolean cLibre() {
+        
+        boolean libre = false;
+        for (int i = 0; i < Cajeros.length; i++) {
+            if (Cajeros[i].isOcupado() == false) {
+                libre = true;
                 break;
             }
         }
