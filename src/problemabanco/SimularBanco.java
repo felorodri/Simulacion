@@ -124,7 +124,7 @@ public class SimularBanco {
     }
 
     /* public void generarSalida(){
-        
+ 
      evento=new Evento("atencion",TiempoAtencion);
        
      }*/
