@@ -54,8 +54,7 @@ public class SimularBanco {
             Cajeros[libre].setOcupado(true);
             Cajeros[libre].setOcupacion(reloj+siguiente.getTiempoAtencion());
             Cajeros[libre].setTiempoTotalOcupado(siguiente.getTiempoAtencion());
-            Cajeros[libre].setClientesAtendidos(Cajeros[libre].getClientesAtendidos()+1);
-                                    
+            Cajeros[libre].setClientesAtendidos(Cajeros[libre].getClientesAtendidos()+1);                                    
         }
         
         
@@ -68,25 +67,7 @@ public class SimularBanco {
         reloj++;
            
     }
-    /*   public void atenderCliente(int reloj) {
-     this.reloj = reloj;
-     generarLlegadas();
-        
-     if(fila.size()==0){
-            
-     System.out.println("No hay clientes por atender");
-            
-     }else{
-            
-     siguiente = (Cliente) fila.elementAt(0);
-     fila.removeElementAt(0);
-     //NumCajeroLibre=cajerolibre();
-     //siguiente.setCajeroAtiende(NumCajeroLibre);
-     //siguiente.setTiempoSalida(reloj+siguiente.getTiempoAtencion());
-     //ClienteAtendido++;  
-     }
-           
-     }*/
+    
     public void eventoSalida() {
     }
 
@@ -94,9 +75,9 @@ public class SimularBanco {
 
         while (reloj <= limite) {
 
-            // System.out.println("\n Tamano ordenLLegada: "+ordenLLegada.size());
+            
             Tiempollegada = ((-1) * Math.log(Math.random())) + reloj;
-            //System.out.println(Tiempollegada);
+            
             TiempoAtencion = (10 - 2) * Math.random() + 2;
             client = new Cliente(Tiempollegada, TiempoAtencion);
 
@@ -118,7 +99,7 @@ public class SimularBanco {
                             ordenLLegada.removeAllElements();
                             ordenLLegada = (Vector) buffer.clone();
                             buffer.removeAllElements();
-                            System.out.println("agrege el nuevo");
+                            
                             break;
                         }
                     } else {
@@ -135,13 +116,9 @@ public class SimularBanco {
                 }
             }
             reloj++;
-            System.out.print("BUFFER:\n");
-            for (int i = 0; i < ordenLLegada.size(); i++) {
-                Cliente nuevoK = (Cliente) ordenLLegada.elementAt(i);
-                System.out.println("El tamano de orden llegada es: " + ordenLLegada.size() + "\n");
-                System.out.println("Tiempo llegada cliente " + i + " es: " + nuevoK.getTiempoLLegada() + "\n");
-            }
+            
         }
+        reloj = 0;
     }
 
     /* public void generarSalida(){
