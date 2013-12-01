@@ -21,7 +21,7 @@ public class SimularBanco {
     int ClientesPerdidos;
     int NumCajeroLibre;
     int reloj = 0;
-    int limite = 120;
+    int limite = 5;
 
     public void inicializarSimulacion(int CantidadCajeros) {
         Cajeros = new Cajero[CantidadCajeros];
@@ -59,6 +59,7 @@ public class SimularBanco {
                 Cajeros[libre].setOcupacion(reloj + sgt.getTiempoAtencion());
                 Cajeros[libre].setTiempoTotalOcupado(sgt.getTiempoAtencion());
                 Cajeros[libre].setClientesAtendidos(Cajeros[libre].getClientesAtendidos() + 1);
+                System.out.println("cajero"+libre+" ocupa: " + Cajeros[libre].getOcupacion());
             }
 
 
@@ -83,7 +84,7 @@ public class SimularBanco {
                             Cajeros[libre].setOcupacion(reloj + cli.getTiempoAtencion());
                             Cajeros[libre].setTiempoTotalOcupado(cli.getTiempoAtencion());
                             Cajeros[libre].setClientesAtendidos(Cajeros[libre].getClientesAtendidos() + 1);
-
+                            System.out.println("cajero"+libre+" ocupa: " + Cajeros[libre].getOcupacion());
                         }
 
                     } else {
@@ -104,7 +105,7 @@ public class SimularBanco {
             for (int w = 0; w < Cajeros.length; w++) {
 
                 if (Cajeros[w].getOcupacion() < reloj && Cajeros[w].getOcupacion() != 0) {
-                    Cajeros[w].setOcupado(false);
+                    Cajeros[w].setOcupado(false);                    
                     Cajas[w].setTiempoSalida(reloj);
                     atendidos.add(Cajas[w]);
                 }
@@ -133,6 +134,7 @@ public class SimularBanco {
 
                     if (Cajeros[w].getOcupacion() < reloj && Cajeros[w].getOcupacion() != 0) {
                         Cajeros[w].setOcupado(false);
+                        System.out.println("cajero"+w+" ocupa: " + Cajeros[w].getOcupacion());
                         Cajas[w].setTiempoSalida(reloj);
                         atendidos.add(Cajas[w]);
                     }
@@ -146,9 +148,12 @@ public class SimularBanco {
         Cajero tm;
         for (int r = 0; r < Cajeros.length; r++) {
             tm = Cajeros[r];
+            System.out.println("cajero"+r+" atendio: " + tm.getClientesAtendidos());            
             ClienteAtendido += tm.getClientesAtendidos();
         }
+        
         System.out.println("cantidad de clientes atendidos: " + ClienteAtendido);
+        System.out.println("reloj: " + reloj);
     }
 
     public void generarLlegadas() {
@@ -198,6 +203,12 @@ public class SimularBanco {
             }
             reloj++;
 
+        }
+        Cliente t;
+        for(int w=0;w<ordenLLegada.size();w++){
+            t=(Cliente)ordenLLegada.elementAt(w);
+            System.out.println("tiempos de llegada: "+t.getTiempoLLegada());
+            System.out.println("tiempos de atencion: "+t.getTiempoAtencion());
         }
         reloj = 0;
     }
