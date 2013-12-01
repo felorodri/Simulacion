@@ -157,7 +157,7 @@ public class SimularBanco {
         }
         MensajeResultados+="Cantidad de clientes perdidos: " + ClientesPerdidos+"\n";
         MensajeResultados+="cantidad de clientes atendidos: " + ClienteAtendido+"\n";
-        MensajeResultados+="porcentaje de clientes perdidos: "+(ClientesPerdidos/(ClientesPerdidos+ClienteAtendido))+"f";
+        MensajeResultados+="porcentaje de clientes perdidos: "+(ClientesPerdidos/(ClientesPerdidos+ClienteAtendido))*100+"%";
         
     }
 
