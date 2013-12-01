@@ -15,7 +15,6 @@ public class SimularBanco {
     Cliente client;
     Cliente siguiente;
     int Cola;
-    int ClientePerdido;
     int ClienteAtendido;
     int ClientesPerdidos;
     int NumCajeroLibre;
@@ -38,7 +37,7 @@ public class SimularBanco {
         Cliente stt;
         while (reloj <= limite) {
 
-            for (int w = 0; w < Cajeros.length; w++) {
+            for (int w = 0; w < Cajeros.length; w++) { // ESTE CICLO PERMITE LIBERAR CAJEROS QUE PARA EL TIEMPO DEL RELOJ DEBEN ESTAR LIBRES
 
                 if (Cajeros[w].getOcupacion() < reloj && Cajeros[w].getOcupacion() != 0) {
                     Cajeros[w].setOcupado(false);
@@ -48,7 +47,8 @@ public class SimularBanco {
 
             }
 
-            while (!fila.isEmpty() && cLibre()) {
+            while (!fila.isEmpty() && cLibre()) { //ESTE CICLO PERMITE ATENDER AL PRIMERO DE LA FILA  SI LA FILA NO ESTA 
+                                                   //VACIA Y HAY UN CAJERO LIBRE PARA EL TIEMPO DEL RELOJ
 
                 int libre = cajerolibre();
                 sgt = (Cliente) fila.elementAt(0);
@@ -63,7 +63,8 @@ public class SimularBanco {
             }
 
 
-            for (int f = 0; f < ordenLLegada.size(); f++) {
+            for (int f = 0; f < ordenLLegada.size(); f++) {// ESTE CICLO PERMITE GESTIONAR LA LLEGADA DE LOS CLIENTES Y PONERLOS EN LA FILA
+                                                          // SI LA FILA ESTÁ VACIA Y HAY UN CAJERO LIBRE PASA A ATENCION DE UNA VEZ
 
                 cli = (Cliente) ordenLLegada.elementAt(0);
 
@@ -100,7 +101,7 @@ public class SimularBanco {
             reloj++;
         }
 
-        while (!fila.isEmpty()) {
+        while (!fila.isEmpty()) { // ESTE CICLO PERMITE FINALIZAR LA ATENCIÓN DE LOS CAJEROS QUE TEMINAN JUSTO EN EL TIEMPO EN QUE FINALIZA EL TURNO
             for (int w = 0; w < Cajeros.length; w++) {
 
                 if (Cajeros[w].getOcupacion() < reloj && Cajeros[w].getOcupacion() != 0) {
@@ -111,7 +112,7 @@ public class SimularBanco {
 
             }
 
-            while (!fila.isEmpty() && cLibre()) {
+            while (!fila.isEmpty() && cLibre()) { // ESTE CICLO PERMITE ATENDER LOS CLIENTES QUE A LA HORA DE FINALIZAR EL TURNO AÚN PERMANECEN EN LA FILA
 
                 int libre = cajerolibre();
                 stt = (Cliente) fila.elementAt(0);
@@ -127,7 +128,8 @@ public class SimularBanco {
             reloj++;
         }
 
-        if (fila.isEmpty() && reloj >= limite) {            
+        if (fila.isEmpty() && reloj >= limite) { // ESTE CICLO PERMITE FINALIZAR LA ATENCIÓN DE LOS CLIENTES QUE PARA LA HORA DEL FINAL DEL TURNO
+                                                 //SE ENCUENTRAN EN LA CAJA
             while (todosLibres()) {
                 for (int w = 0; w < Cajeros.length; w++) {
 
