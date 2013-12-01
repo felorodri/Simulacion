@@ -260,6 +260,7 @@ public class SimularBanco {
         return tmp;
     }
 
+    
     public String getMensajeResultados() {
         return MensajeResultados;
     }
