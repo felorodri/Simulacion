@@ -36,11 +36,12 @@ public class GUI extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        txResultados = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        Txresultado = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Problema Banco - Tarea 2 - Simulacion Computacional");
@@ -80,6 +81,11 @@ public class GUI extends javax.swing.JFrame {
 
         jLabel9.setText("SIMULACIÓN COMPUTACIONAL");
 
+        Txresultado.setEditable(false);
+        Txresultado.setColumns(20);
+        Txresultado.setRows(5);
+        jScrollPane1.setViewportView(Txresultado);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -109,11 +115,13 @@ public class GUI extends javax.swing.JFrame {
                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel7)
-                            .addComponent(txResultados, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel7)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 261, Short.MAX_VALUE)))
                     .addComponent(jLabel1)
                     .addComponent(jLabel9))
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -149,8 +157,8 @@ public class GUI extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel7)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txResultados))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jScrollPane1))
                             .addComponent(jSeparator1))))
                 .addContainerGap())
         );
@@ -160,9 +168,10 @@ public class GUI extends javax.swing.JFrame {
 
     private void BSimularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BSimularActionPerformed
         SimularBanco abrirBanco=new SimularBanco();
-       abrirBanco.inicializarSimulacion(Integer.parseInt(TxCantCajeros.getText()));
+       abrirBanco.inicializarSimulacion(Integer.parseInt(TxCantCajeros.getText()), Integer.parseInt(TxTimeSimulacion.getText()));
        abrirBanco.generarLlegadas();
        abrirBanco.simulaAtencion();
+       Txresultado.setText(abrirBanco.getMensajeResultados());
     }//GEN-LAST:event_BSimularActionPerformed
 
     private void BMostrarEstadisticasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BMostrarEstadisticasActionPerformed
@@ -208,6 +217,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JButton BSimular;
     private javax.swing.JTextField TxCantCajeros;
     private javax.swing.JTextField TxTimeSimulacion;
+    private javax.swing.JTextArea Txresultado;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -217,7 +227,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTextField txResultados;
     // End of variables declaration//GEN-END:variables
 }

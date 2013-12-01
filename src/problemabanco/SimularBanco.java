@@ -21,9 +21,11 @@ public class SimularBanco {
     int ClientesPerdidos;
     int NumCajeroLibre;
     int reloj = 0;
-    int limite = 5;
+    int limite = 0;
+    String MensajeResultados="";
 
-    public void inicializarSimulacion(int CantidadCajeros) {
+    public void inicializarSimulacion(int CantidadCajeros, int limite) {
+        this.limite=limite;
         Cajeros = new Cajero[CantidadCajeros];
         Cajas = new Cliente[CantidadCajeros];
         for (int k = 0; k < Cajeros.length; k++) {
@@ -143,17 +145,19 @@ public class SimularBanco {
             }
 
         }
-
-        System.out.println("Cantidad de clientes perdidos: " + ClientesPerdidos);
+        
         Cajero tm;
+        int n;
         for (int r = 0; r < Cajeros.length; r++) {
             tm = Cajeros[r];
-            System.out.println("cajero"+r+" atendio: " + tm.getClientesAtendidos());            
+            n=r+1;
+            MensajeResultados+="El cajero "+n+" atendio " + tm.getClientesAtendidos()+" clientes \n";
+            MensajeResultados+="El cajero "+n+" obtuvo una ocupacion del " + Math.round((tm.getTiempoTotalOcupado()/reloj)*100)+"% \n";
             ClienteAtendido += tm.getClientesAtendidos();
         }
+        MensajeResultados+="Cantidad de clientes perdidos: " + ClientesPerdidos+"\n";
+        MensajeResultados+="cantidad de clientes atendidos: " + ClienteAtendido+"\n";
         
-        System.out.println("cantidad de clientes atendidos: " + ClienteAtendido);
-        System.out.println("reloj: " + reloj);
     }
 
     public void generarLlegadas() {
@@ -252,4 +256,9 @@ public class SimularBanco {
     
         return tmp;
     }
+
+    public String getMensajeResultados() {
+        return MensajeResultados;
+    }
+    
 }
