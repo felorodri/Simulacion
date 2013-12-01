@@ -1,7 +1,6 @@
 package problemabanco;
 
-import com.sun.org.apache.bcel.internal.generic.RETURN;
-import java.util.Stack;
+
 import java.util.Vector;
 
 public class SimularBanco {
@@ -60,8 +59,7 @@ public class SimularBanco {
                 Cajeros[libre].setOcupado(true);
                 Cajeros[libre].setOcupacion(reloj + sgt.getTiempoAtencion());
                 Cajeros[libre].setTiempoTotalOcupado(sgt.getTiempoAtencion());
-                Cajeros[libre].setClientesAtendidos(Cajeros[libre].getClientesAtendidos() + 1);
-                System.out.println("cajero"+libre+" ocupa: " + Cajeros[libre].getOcupacion());
+                Cajeros[libre].setClientesAtendidos(Cajeros[libre].getClientesAtendidos() + 1);               
             }
 
 
@@ -85,8 +83,7 @@ public class SimularBanco {
                             Cajeros[libre].setOcupado(true);
                             Cajeros[libre].setOcupacion(reloj + cli.getTiempoAtencion());
                             Cajeros[libre].setTiempoTotalOcupado(cli.getTiempoAtencion());
-                            Cajeros[libre].setClientesAtendidos(Cajeros[libre].getClientesAtendidos() + 1);
-                            System.out.println("cajero"+libre+" ocupa: " + Cajeros[libre].getOcupacion());
+                            Cajeros[libre].setClientesAtendidos(Cajeros[libre].getClientesAtendidos() + 1);                            
                         }
 
                     } else {
@@ -135,8 +132,7 @@ public class SimularBanco {
                 for (int w = 0; w < Cajeros.length; w++) {
 
                     if (Cajeros[w].getOcupacion() < reloj && Cajeros[w].getOcupacion() != 0) {
-                        Cajeros[w].setOcupado(false);
-                        System.out.println("cajero"+w+" ocupa: " + Cajeros[w].getOcupacion());
+                        Cajeros[w].setOcupado(false);                        
                         Cajas[w].setTiempoSalida(reloj);
                         atendidos.add(Cajas[w]);
                     }
@@ -156,9 +152,15 @@ public class SimularBanco {
             ClienteAtendido += tm.getClientesAtendidos();
         }
         MensajeResultados+="Cantidad de clientes perdidos: " + ClientesPerdidos+"\n";
-        MensajeResultados+="cantidad de clientes atendidos: " + ClienteAtendido+"\n";
-        MensajeResultados+="porcentaje de clientes perdidos: "+Math.round(((double)ClientesPerdidos/(ClientesPerdidos+ClienteAtendido))*100)+"%";
-        
+        MensajeResultados+="Cantidad de clientes atendidos: " + ClienteAtendido+"\n";
+        MensajeResultados+="Porcentaje de clientes perdidos: "+Math.round(((double)ClientesPerdidos/(ClientesPerdidos+ClienteAtendido))*100)+"%\n";
+        Cliente t;
+        double y=0;
+        for(int p=0;p<atendidos.size();p++){
+            t=(Cliente)atendidos.elementAt(p);
+            y=y+(t.getTiempoSalida()-t.getTiempoLLegada());
+        }
+        MensajeResultados+="El promedio de estadia del cliente en el banco es: "+Math.round(y/ClienteAtendido)+"\n";
     }
 
     public void generarLlegadas() {
@@ -209,12 +211,7 @@ public class SimularBanco {
             reloj++;
 
         }
-        Cliente t;
-        for(int w=0;w<ordenLLegada.size();w++){
-            t=(Cliente)ordenLLegada.elementAt(w);
-            System.out.println("tiempos de llegada: "+t.getTiempoLLegada());
-            System.out.println("tiempos de atencion: "+t.getTiempoAtencion());
-        }
+        
         reloj = 0;
     }
 
