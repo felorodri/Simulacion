@@ -37,7 +37,7 @@ public class SimularBanco {
         Cliente cli;
         Cliente stt;
         while (reloj <= limite) {
-
+            
             for (int w = 0; w < Cajeros.length; w++) {
 
                 if (Cajeros[w].getOcupacion() < reloj && Cajeros[w].getOcupacion() != 0) {
