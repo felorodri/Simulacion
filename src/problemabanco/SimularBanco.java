@@ -152,11 +152,12 @@ public class SimularBanco {
             tm = Cajeros[r];
             n=r+1;
             MensajeResultados+="El cajero "+n+" atendio " + tm.getClientesAtendidos()+" clientes \n";
-            MensajeResultados+="El cajero "+n+" obtuvo una ocupacion del " + Math.round((tm.getTiempoTotalOcupado()/reloj)*100)+"% \n";
+            MensajeResultados+="El cajero "+n+" obtuvo una ocupacion del " + Math.round((tm.getTiempoTotalOcupado()/limite)*100)+"% \n";
             ClienteAtendido += tm.getClientesAtendidos();
         }
         MensajeResultados+="Cantidad de clientes perdidos: " + ClientesPerdidos+"\n";
         MensajeResultados+="cantidad de clientes atendidos: " + ClienteAtendido+"\n";
+        MensajeResultados+="porcentaje de clientes perdidos: "+(ClientesPerdidos/(ClientesPerdidos+ClienteAtendido))+"f";
         
     }
 
