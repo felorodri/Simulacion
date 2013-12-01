@@ -163,7 +163,7 @@ public class SimularBanco {
             y2=y2+(t.getTiempoInicioAtencion()-t.getTiempoLLegada());
         }
         MensajeResultados+="El promedio de estadia del cliente en el banco es: "+Math.round(y/ClienteAtendido)+"\n";
-        MensajeResultados+="El promedio de tiempo en la fila del cliente es: "+Math.round(y2/ClienteAtendido);
+        MensajeResultados+="El promedio de tiempo en la fila del cliente es: "+Math.round(y2/ClienteAtendido)+" min";
     }
 
     public void generarLlegadas() {
