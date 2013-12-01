@@ -156,11 +156,14 @@ public class SimularBanco {
         MensajeResultados+="Porcentaje de clientes perdidos: "+Math.round(((double)ClientesPerdidos/(ClientesPerdidos+ClienteAtendido))*100)+"%\n";
         Cliente t;
         double y=0;
+        double y2=0;
         for(int p=0;p<atendidos.size();p++){
             t=(Cliente)atendidos.elementAt(p);
             y=y+(t.getTiempoSalida()-t.getTiempoLLegada());
+            y2=y2+(t.getTiempoInicioAtencion()-t.getTiempoLLegada());
         }
         MensajeResultados+="El promedio de estadia del cliente en el banco es: "+Math.round(y/ClienteAtendido)+"\n";
+        MensajeResultados+="El promedio de tiempo en la fila del cliente es: "+Math.round(y2/ClienteAtendido);
     }
 
     public void generarLlegadas() {
