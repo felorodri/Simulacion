@@ -36,7 +36,7 @@ public class SimularBanco {
         Cliente cli;
         Cliente stt;
         while (reloj <= limite) {
-
+            //SALIDA CLIENTE
             for (int w = 0; w < Cajeros.length; w++) { // ESTE CICLO PERMITE LIBERAR CAJEROS QUE PARA EL TIEMPO DEL RELOJ DEBEN ESTAR LIBRES
 
                 if (Cajeros[w].getOcupacion() < reloj && Cajeros[w].getOcupacion() != 0) {
@@ -46,7 +46,7 @@ public class SimularBanco {
                 }
 
             }
-
+            //ATENDER PRIMERO DE LA FILA
             while (!fila.isEmpty() && cLibre()) { //ESTE CICLO PERMITE ATENDER AL PRIMERO DE LA FILA  SI LA FILA NO ESTA 
                                                    //VACIA Y HAY UN CAJERO LIBRE PARA EL TIEMPO DEL RELOJ
 
@@ -62,7 +62,7 @@ public class SimularBanco {
                 Cajeros[libre].setClientesAtendidos(Cajeros[libre].getClientesAtendidos() + 1);               
             }
 
-
+            //LLEGADA CLIENTE
             for (int f = 0; f < ordenLLegada.size(); f++) {// ESTE CICLO PERMITE GESTIONAR LA LLEGADA DE LOS CLIENTES Y PONERLOS EN LA FILA
                                                           // SI LA FILA ESTÁ VACIA Y HAY UN CAJERO LIBRE PASA A ATENCION DE UNA VEZ
 
@@ -168,7 +168,7 @@ public class SimularBanco {
         MensajeResultados+="El promedio de tiempo en la fila del cliente es: "+Math.round(y2/ClienteAtendido)+" min";
     }
 
-    public void generarLlegadas() {
+    public void generarLEF() {
         Cliente clt;
         while (reloj <= limite) {
 

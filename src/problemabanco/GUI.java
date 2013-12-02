@@ -169,7 +169,7 @@ public class GUI extends javax.swing.JFrame {
     private void BSimularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BSimularActionPerformed
         SimularBanco abrirBanco=new SimularBanco();
        abrirBanco.inicializarSimulacion(Integer.parseInt(TxCantCajeros.getText()), Integer.parseInt(TxTimeSimulacion.getText()));
-       abrirBanco.generarLlegadas();
+       abrirBanco.generarLEF();
        abrirBanco.simulaAtencion();
        Txresultado.setText(abrirBanco.getMensajeResultados());
     }//GEN-LAST:event_BSimularActionPerformed
