@@ -32,117 +32,16 @@ public class SimularBanco {
     }
 
     public void simulaAtencion() {
-        Cliente sgt;
-        Cliente cli;
-        Cliente stt;
+                
         while (reloj <= limite) {
-            //SALIDA CLIENTE
-            for (int w = 0; w < Cajeros.length; w++) { // ESTE CICLO PERMITE LIBERAR CAJEROS QUE PARA EL TIEMPO DEL RELOJ DEBEN ESTAR LIBRES
-
-                if (Cajeros[w].getOcupacion() < reloj && Cajeros[w].getOcupacion() != 0) {
-                    Cajeros[w].setOcupado(false);
-                    Cajas[w].setTiempoSalida(reloj);
-                    atendidos.add(Cajas[w]);
-                }
-
-            }
-            //ATENDER PRIMERO DE LA FILA
-            while (!fila.isEmpty() && cLibre()) { //ESTE CICLO PERMITE ATENDER AL PRIMERO DE LA FILA  SI LA FILA NO ESTA 
-                                                   //VACIA Y HAY UN CAJERO LIBRE PARA EL TIEMPO DEL RELOJ
-
-                int libre = cajerolibre();
-                sgt = (Cliente) fila.elementAt(0);
-                sgt.setTiempoInicioAtencion(reloj);
-                Cajas[libre] = sgt;
-                fila.removeElementAt(0);
-
-                Cajeros[libre].setOcupado(true);
-                Cajeros[libre].setOcupacion(reloj + sgt.getTiempoAtencion());
-                Cajeros[libre].setTiempoTotalOcupado(sgt.getTiempoAtencion());
-                Cajeros[libre].setClientesAtendidos(Cajeros[libre].getClientesAtendidos() + 1);               
-            }
-
-            //LLEGADA CLIENTE
-            for (int f = 0; f < ordenLLegada.size(); f++) {// ESTE CICLO PERMITE GESTIONAR LA LLEGADA DE LOS CLIENTES Y PONERLOS EN LA FILA
-                                                          // SI LA FILA ESTÁ VACIA Y HAY UN CAJERO LIBRE PASA A ATENCION DE UNA VEZ
-
-                cli = (Cliente) ordenLLegada.elementAt(0);
-
-                if (cli.getTiempoLLegada() < reloj + 1) {
-
-                    if (fila.size() < 7) {
-                        fila.add(cli);
-                        ordenLLegada.removeElementAt(0);
-
-                        if (cLibre() == true && fila.size() == 1) {
-
-                            cli = (Cliente) fila.elementAt(0);
-                            fila.removeElementAt(0);
-                            int libre = cajerolibre();
-                            cli.setTiempoInicioAtencion(reloj);
-                            Cajas[libre] = cli;
-                            Cajeros[libre].setOcupado(true);
-                            Cajeros[libre].setOcupacion(reloj + cli.getTiempoAtencion());
-                            Cajeros[libre].setTiempoTotalOcupado(cli.getTiempoAtencion());
-                            Cajeros[libre].setClientesAtendidos(Cajeros[libre].getClientesAtendidos() + 1);                            
-                        }
-
-                    } else {
-                        ordenLLegada.removeElementAt(0);
-                        ClientesPerdidos++;
-                    }
-
-                } else {
-                    break;
-                }
-
-            }
-
+            
+            salidaCliente();
+            atenderPrimeroFila();
+            llegadaCliente();
             reloj++;
         }
 
-        while (!fila.isEmpty()) { // ESTE CICLO PERMITE FINALIZAR LA ATENCIÓN DE LOS CAJEROS QUE TEMINAN JUSTO EN EL TIEMPO EN QUE FINALIZA EL TURNO
-            for (int w = 0; w < Cajeros.length; w++) {
-
-                if (Cajeros[w].getOcupacion() < reloj && Cajeros[w].getOcupacion() != 0) {
-                    Cajeros[w].setOcupado(false);                    
-                    Cajas[w].setTiempoSalida(reloj);
-                    atendidos.add(Cajas[w]);
-                }
-
-            }
-
-            while (!fila.isEmpty() && cLibre()) { // ESTE CICLO PERMITE ATENDER LOS CLIENTES QUE A LA HORA DE FINALIZAR EL TURNO AÚN PERMANECEN EN LA FILA
-
-                int libre = cajerolibre();
-                stt = (Cliente) fila.elementAt(0);
-                stt.setTiempoInicioAtencion(reloj);
-                Cajas[libre] = stt;
-                fila.removeElementAt(0);
-
-                Cajeros[libre].setOcupado(true);
-                Cajeros[libre].setOcupacion(reloj + stt.getTiempoAtencion());
-                Cajeros[libre].setTiempoTotalOcupado(stt.getTiempoAtencion());
-                Cajeros[libre].setClientesAtendidos(Cajeros[libre].getClientesAtendidos() + 1);
-            }
-            reloj++;
-        }
-
-        if (fila.isEmpty() && reloj >= limite) { // ESTE CICLO PERMITE FINALIZAR LA ATENCIÓN DE LOS CLIENTES QUE PARA LA HORA DEL FINAL DEL TURNO
-                                                 //SE ENCUENTRAN EN LA CAJA
-            while (todosLibres()) {
-                for (int w = 0; w < Cajeros.length; w++) {
-
-                    if (Cajeros[w].getOcupacion() < reloj && Cajeros[w].getOcupacion() != 0) {
-                        Cajeros[w].setOcupado(false);                        
-                        Cajas[w].setTiempoSalida(reloj);
-                        atendidos.add(Cajas[w]);
-                    }
-                }
-                reloj++;
-            }
-
-        }
+        atenderUltimosClientes();
         
         Cajero tm;
         int n;
@@ -265,4 +164,128 @@ public class SimularBanco {
         return MensajeResultados;
     }
     
+    
+    private void salidaCliente(){ // ESTE MÉTODO PERMITE LIBERAR CAJEROS QUE PARA EL TIEMPO DEL RELOJ DEBEN ESTAR LIBRES
+        
+            for (int w = 0; w < Cajeros.length; w++) { 
+
+                if (Cajeros[w].getOcupacion() < reloj && Cajeros[w].getOcupacion() != 0) {
+                    Cajeros[w].setOcupado(false);
+                    Cajas[w].setTiempoSalida(reloj);
+                    atendidos.add(Cajas[w]);
+                }
+
+            }
+        
+    }
+    
+    
+    private void atenderPrimeroFila(){/*ESTE MÉTODO PERMITE ATENDER AL PRIMERO DE LA FILA  SI LA FILA NO ESTA 
+                                        VACIA Y HAY UN CAJERO LIBRE PARA EL TIEMPO DEL RELOJ*/
+        
+        Cliente sgt;
+        while (!fila.isEmpty() && cLibre()) { 
+
+                int libre = cajerolibre();
+                sgt = (Cliente) fila.elementAt(0);
+                sgt.setTiempoInicioAtencion(reloj);
+                Cajas[libre] = sgt;
+                fila.removeElementAt(0);
+
+                Cajeros[libre].setOcupado(true);
+                Cajeros[libre].setOcupacion(reloj + sgt.getTiempoAtencion());
+                Cajeros[libre].setTiempoTotalOcupado(sgt.getTiempoAtencion());
+                Cajeros[libre].setClientesAtendidos(Cajeros[libre].getClientesAtendidos() + 1);               
+            }
+        
+        
+    }
+    
+    private void llegadaCliente(){
+        Cliente cli;
+        for (int f = 0; f < ordenLLegada.size(); f++) {/* ESTE MÉTODO PERMITE GESTIONAR LA LLEGADA DE LOS CLIENTES Y PONERLOS EN LA FILA
+                                                          SI LA FILA ESTÁ VACIA Y HAY UN CAJERO LIBRE PASA A ATENCION DE UNA VEZ*/
+
+                cli = (Cliente) ordenLLegada.elementAt(0);
+
+                if (cli.getTiempoLLegada() < reloj + 1) {
+
+                    if (fila.size() < 7) {
+                        fila.add(cli);
+                        ordenLLegada.removeElementAt(0);
+
+                        if (cLibre() == true && fila.size() == 1) {
+
+                            cli = (Cliente) fila.elementAt(0);
+                            fila.removeElementAt(0);
+                            int libre = cajerolibre();
+                            cli.setTiempoInicioAtencion(reloj);
+                            Cajas[libre] = cli;
+                            Cajeros[libre].setOcupado(true);
+                            Cajeros[libre].setOcupacion(reloj + cli.getTiempoAtencion());
+                            Cajeros[libre].setTiempoTotalOcupado(cli.getTiempoAtencion());
+                            Cajeros[libre].setClientesAtendidos(Cajeros[libre].getClientesAtendidos() + 1);                            
+                        }
+
+                    } else {
+                        ordenLLegada.removeElementAt(0);
+                        ClientesPerdidos++;
+                    }
+
+                } else {
+                    break;
+                }
+
+            }
+        
+    }
+    
+    
+    private void atenderUltimosClientes(){
+        Cliente stt;
+        
+        while (!fila.isEmpty()) { // ESTE CICLO PERMITE FINALIZAR LA ATENCIÓN DE LOS CAJEROS QUE TEMINAN JUSTO EN EL TIEMPO EN QUE FINALIZA EL TURNO
+            for (int w = 0; w < Cajeros.length; w++) {
+
+                if (Cajeros[w].getOcupacion() < reloj && Cajeros[w].getOcupacion() != 0) {
+                    Cajeros[w].setOcupado(false);                    
+                    Cajas[w].setTiempoSalida(reloj);
+                    atendidos.add(Cajas[w]);
+                }
+
+            }
+
+            while (!fila.isEmpty() && cLibre()) { // ESTE CICLO PERMITE ATENDER LOS CLIENTES QUE A LA HORA DE FINALIZAR EL TURNO AÚN PERMANECEN EN LA FILA
+                
+                int libre = cajerolibre();
+                stt = (Cliente) fila.elementAt(0);
+                stt.setTiempoInicioAtencion(reloj);
+                Cajas[libre] = stt;
+                fila.removeElementAt(0);
+
+                Cajeros[libre].setOcupado(true);
+                Cajeros[libre].setOcupacion(reloj + stt.getTiempoAtencion());
+                Cajeros[libre].setTiempoTotalOcupado(stt.getTiempoAtencion());
+                Cajeros[libre].setClientesAtendidos(Cajeros[libre].getClientesAtendidos() + 1);
+            }
+            reloj++;
+        }
+
+        if (fila.isEmpty() && reloj >= limite) { /* ESTE CICLO PERMITE FINALIZAR LA ATENCIÓN DE LOS CLIENTES QUE PARA LA HORA DEL FINAL DEL TURNO
+                                                   SE ENCUENTRAN EN LA CAJA */
+            while (todosLibres()) {
+                for (int w = 0; w < Cajeros.length; w++) {
+
+                    if (Cajeros[w].getOcupacion() < reloj && Cajeros[w].getOcupacion() != 0) {
+                        Cajeros[w].setOcupado(false);                        
+                        Cajas[w].setTiempoSalida(reloj);
+                        atendidos.add(Cajas[w]);
+                    }
+                }
+                reloj++;
+            }
+
+        }
+    }
+        
 }
