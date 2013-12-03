@@ -159,12 +159,10 @@ public class SimularBanco {
         return tmp;
     }
 
-    
     public String getMensajeResultados() {
         return MensajeResultados;
     }
-    
-    
+        
     private void salidaCliente(){ // ESTE MÉTODO PERMITE LIBERAR CAJEROS QUE PARA EL TIEMPO DEL RELOJ DEBEN ESTAR LIBRES
         
             for (int w = 0; w < Cajeros.length; w++) { 
@@ -178,8 +176,7 @@ public class SimularBanco {
             }
         
     }
-    
-    
+        
     private void atenderPrimeroFila(){/*ESTE MÉTODO PERMITE ATENDER AL PRIMERO DE LA FILA  SI LA FILA NO ESTA 
                                         VACIA Y HAY UN CAJERO LIBRE PARA EL TIEMPO DEL RELOJ*/
         
@@ -203,8 +200,7 @@ public class SimularBanco {
     
     private void llegadaCliente(){
         Cliente cli;
-        for (int f = 0; f < ordenLLegada.size(); f++) {/* ESTE MÉTODO PERMITE GESTIONAR LA LLEGADA DE LOS CLIENTES Y PONERLOS EN LA FILA
-                                                          SI LA FILA ESTÁ VACIA Y HAY UN CAJERO LIBRE PASA A ATENCION DE UNA VEZ*/
+        for (int f = 0; f < ordenLLegada.size(); f++) {/* ESTE MÉTODO PERMITE reloj ATENCION DE UNA VEZ*/
 
                 cli = (Cliente) ordenLLegada.elementAt(0);
 
@@ -239,8 +235,7 @@ public class SimularBanco {
             }
         
     }
-    
-    
+        
     private void atenderUltimosClientes(){
         Cliente stt;
         
