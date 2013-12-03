@@ -32,7 +32,6 @@ public class GUI extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         TxTimeSimulacion = new javax.swing.JTextField();
         BSimular = new javax.swing.JButton();
-        BMostrarEstadisticas = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -42,6 +41,7 @@ public class GUI extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         Txresultado = new javax.swing.JTextArea();
+        jLabel10 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Problema Banco - Tarea 2 - Simulacion Computacional");
@@ -57,13 +57,6 @@ public class GUI extends javax.swing.JFrame {
         BSimular.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BSimularActionPerformed(evt);
-            }
-        });
-
-        BMostrarEstadisticas.setText("Mostrar Estadisticas");
-        BMostrarEstadisticas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BMostrarEstadisticasActionPerformed(evt);
             }
         });
 
@@ -86,30 +79,32 @@ public class GUI extends javax.swing.JFrame {
         Txresultado.setRows(5);
         jScrollPane1.setViewportView(Txresultado);
 
+        jLabel10.setText("Alejandro Gomez");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(44, 44, 44)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(BMostrarEstadisticas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel6)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(TxTimeSimulacion, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)
-                                .addComponent(TxCantCajeros, javax.swing.GroupLayout.Alignment.LEADING))
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel2)
-                            .addComponent(BSimular, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(18, 18, 18))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(57, 57, 57)))
+                        .addGap(57, 57, 57))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(44, 44, 44)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel10)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jLabel4)
+                                .addComponent(jLabel5)
+                                .addComponent(jLabel6)
+                                .addComponent(TxTimeSimulacion)
+                                .addComponent(TxCantCajeros)
+                                .addComponent(jLabel3)
+                                .addComponent(jLabel2)
+                                .addComponent(BSimular, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE)))
+                        .addGap(18, 18, 18)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -141,14 +136,14 @@ public class GUI extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(BSimular)
                         .addGap(18, 18, 18)
-                        .addComponent(BMostrarEstadisticas)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel6)
-                        .addGap(11, 11, 11))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel10)
+                        .addGap(20, 20, 20))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -173,10 +168,6 @@ public class GUI extends javax.swing.JFrame {
        abrirBanco.simulaAtencion();
        Txresultado.setText(abrirBanco.getMensajeResultados());
     }//GEN-LAST:event_BSimularActionPerformed
-
-    private void BMostrarEstadisticasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BMostrarEstadisticasActionPerformed
-        
-    }//GEN-LAST:event_BMostrarEstadisticasActionPerformed
 
     /**
      * @param args the command line arguments
@@ -213,12 +204,12 @@ public class GUI extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton BMostrarEstadisticas;
     private javax.swing.JButton BSimular;
     private javax.swing.JTextField TxCantCajeros;
     private javax.swing.JTextField TxTimeSimulacion;
     private javax.swing.JTextArea Txresultado;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
